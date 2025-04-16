@@ -16,17 +16,20 @@ class Queue
 		int _tail;                 // Index for pushing
 		int _count;                // Current element count
 
+		
 		mutable std::mutex mtx;               // Mutex for thread safety
 		std::condition_variable cv;           // Condition variable for blocking pop
-		void advance(int& index);             // Helper for circular index
+		void advance(int &index);             // Helper for circular index
 
 	public:
 		Queue(int size);
 		~Queue();
-		//void Push(T element);
+		void Push(T element);
 		//T Pop();
 		//T PopWithTimeout(int milliseconds);
 		//int Count(); // Amount of elements stored now
-		//int Size(); // Max number of elements 
+		int Size(); // Max number of elements 
+
+		void show();
 };
 
