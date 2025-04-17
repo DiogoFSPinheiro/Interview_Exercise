@@ -13,9 +13,9 @@ T Queue<T>::PopWithTimeout(int milliseconds)
 
 	if (_count == 0)
 	{
-		if (!cv.wait_for(lock, std::chrono::milliseconds(milliseconds), [&] { return _count > 0; }))
+		if (!cv.wait_for(lock, std::chrono::milliseconds(milliseconds), [this] { return _count > 0; }))
 		{
-			throw std::runtime_error("Timeout: No element received in time.");
+			throw std::runtime_error("No element received in time.");
 		}
 	}
 
@@ -43,31 +43,21 @@ T Queue<T>::Pop()
 template <typename T>
 void Queue<T>::Push(T element)
 {
-	std::unique_lock<std::mutex> lock(mtx);     // 1️⃣ Lock for thread safety
+	std::unique_lock<std::mutex> lock(mtx);
 
-	if (_count == _maxSize) {                   // 2️⃣ If full...
-		advance(_head);                         //    Drop oldest → move head forward
-		--_count;                               //    One item "forgotten"
-	}
-
-	_buffer[_tail] = element;                   // 3️⃣ Write at tail
-	advance(_tail);                             // 4️⃣ Move tail forward (circularly)
-	++_count;                                   // 5️⃣ One more item now
-
-	cv.notify_one();                            // 6️⃣ Wake up one waiting Pop()
-}
-
-template<typename T>
-void Queue<T>::show()
-{
-	int c = 0;
-	while (c < _maxSize)
+	if (_count == _maxSize)
 	{
-		std::cout << _buffer[c] << std::endl;
-		c++;
+		advance(_head);
+		--_count;
 	}
-		
+
+	_buffer[_tail] = element;
+	advance(_tail);
+	++_count;
+
+	cv.notify_one();
 }
+
 
 template<typename T>
 Queue<T>::Queue(int size) : _maxSize(size), _head(0), _tail(0), _count(0)
