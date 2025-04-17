@@ -1,6 +1,9 @@
-#pragma once
+#ifndef QUEUE_HPP
+#define QUEUE_HPP
+
 
 #include <mutex>
+#include <thread>
 #include <iostream>
 #include <vector>
 #include <condition_variable>
@@ -31,5 +34,7 @@ class Queue
 		int Size(); // Max number of elements 
 
 		void show();
+		void DebugState(const std::string& label) const;
 };
 
+#endif
