@@ -1,13 +1,10 @@
 #pragma once
 
-
 #include <mutex>
 #include <thread>
 #include <iostream>
 #include <vector>
 #include <condition_variable>
-
-
 
 template<typename T>
 class Queue

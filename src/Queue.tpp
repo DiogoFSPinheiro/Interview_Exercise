@@ -1,11 +1,26 @@
 #include "Queue.hpp"
 
+/**
+* @brief Gets the current number of elements in the queue.
+* 
+* @return The current count of elements.
+*/
 template <typename T>
 int Queue<T>::Count()
 {
 	return _count;
 }
 
+/**
+* @brief Removes and returns an element from the queue with a timeout.
+* 
+* Blocks the calling thread until an item is available or the specified timeout is reached.
+* 
+* @param milliseconds The timeout in milliseconds to wait for an element.
+* @return The item popped from the queue.
+* 
+* @throws std::runtime_error If no element is received within the given timeout.
+*/
 template<typename T>
 T Queue<T>::PopWithTimeout(int milliseconds)
 {
@@ -26,6 +41,13 @@ T Queue<T>::PopWithTimeout(int milliseconds)
 	return value;
 }
 
+/**
+* @brief Removes and returns an element from the queue.
+* 
+* Blocks the calling thread until an item becomes available.
+* 
+* @return The item popped from the queue.
+*/
 template<typename T>
 T Queue<T>::Pop()
 {
@@ -40,6 +62,14 @@ T Queue<T>::Pop()
 	return value;
 }
 
+/**
+* @brief Adds an element to the queue.
+* 
+* If the queue is full, it discards the oldest element before inserting the new one.
+* Notifies one waiting thread (if any).
+* 
+* @param element The element to insert.
+*/
 template <typename T>
 void Queue<T>::Push(T element)
 {
@@ -58,31 +88,57 @@ void Queue<T>::Push(T element)
 	cv.notify_one();
 }
 
-
+/**
+* @brief Constructs a queue with a fixed capacity.
+* 
+* @param size The maximum number of elements the queue can hold.
+*/
 template<typename T>
 Queue<T>::Queue(int size) : _maxSize(size), _head(0), _tail(0), _count(0)
 {
 	_buffer = new T[size];
 }
 
+/**
+* @brief Destructor for the queue.
+* 
+* Frees the dynamically allocated buffer.
+*/
 template<typename T>
 Queue<T>::~Queue()
 {
 	delete[] _buffer;
 }
 
+/**
+* @brief Gets the maximum capacity of the queue.
+* 
+* @return The maximum number of elements the queue can hold.
+*/
 template<typename T>
 int Queue<T>::Size()
 {
 	return _maxSize;
 }
 
+/**
+* @brief Advances an index in circular fashion within the bounds of the queue size.
+* 
+* @param index Reference to the index to be incremented.
+*/
 template<typename T>
 void Queue<T>::advance(int &index)
 {
 	index = (index + 1) % _maxSize;
 }
 
+/**
+* @brief Prints internal state of the queue for debugging purposes.
+* 
+* Shows buffer content, head, tail, and count values with a custom label.
+* 
+* @param label A label to identify the debug print.
+*/
 template<typename T>
 void Queue<T>::DebugState(const std::string& label) const
 {
