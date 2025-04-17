@@ -1,5 +1,11 @@
 #include "Queue.hpp"
 
+template <typename T>
+int Queue<T>::Count()
+{
+	return _count;
+}
+
 template<typename T>
 T Queue<T>::PopWithTimeout(int milliseconds)
 {
