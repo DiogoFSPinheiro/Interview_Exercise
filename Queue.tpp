@@ -1,5 +1,39 @@
 #include "Queue.hpp"
 
+template<typename T>
+T Queue<T>::PopWithTimeout(int milliseconds)
+{
+	std::unique_lock<std::mutex> lock(mtx);
+
+	if (_count == 0)
+	{
+		if (!cv.wait_for(lock, std::chrono::milliseconds(milliseconds), [&] { return _count > 0; }))
+		{
+			throw std::runtime_error("Timeout: No element received in time.");
+		}
+	}
+
+	T value = _buffer[_head];
+	advance(_head);
+	--_count;
+
+	return value;
+}
+
+template<typename T>
+T Queue<T>::Pop()
+{
+	std::unique_lock<std::mutex> lock(mtx);
+
+	cv.wait(lock, [this]() { return _count > 0; });
+
+	T value = _buffer[_head];
+	advance(_head);
+	--_count;
+
+	return value;
+}
+
 template <typename T>
 void Queue<T>::Push(T element)
 {

@@ -28,8 +28,8 @@ class Queue
 		Queue(int size);
 		~Queue();
 		void Push(T element);
-		//T Pop();
-		//T PopWithTimeout(int milliseconds);
+		T Pop();
+		T PopWithTimeout(int milliseconds);
 		//int Count(); // Amount of elements stored now
 		int Size(); // Max number of elements 
 
