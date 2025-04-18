@@ -1002,6 +1002,7 @@ FILE_PATTERNS          = *.c \
                          *.odl \
                          *.h \
                          *.hh \
+						 *.tpp \
                          *.hxx \
                          *.hpp \
                          *.h++ \

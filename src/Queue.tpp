@@ -1,3 +1,14 @@
+/**
+ * @file Queue.tpp
+ * @author DiogoFSPinheiro
+ * @brief This file has all the Template Functions
+ * @version 1.01
+ * @date 2025-04-18
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #include "Queue.hpp"
 
 /**
