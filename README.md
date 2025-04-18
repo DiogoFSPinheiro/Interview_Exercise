@@ -23,7 +23,7 @@ The core class is a template-based `Queue<T>` that can be used with any copyable
 
 ## Build Instructions
 
-This project uses **CMake** and assumes **GoogleTest** is installed.
+This project uses **CMake** and assumes that **GoogleTest** and **doxygen** is installed.
 
 ```bash
 # Clone the repository
