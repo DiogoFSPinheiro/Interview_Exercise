@@ -27,7 +27,7 @@ This project uses **CMake** and assumes **GoogleTest** is installed.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/multithreaded-queue.git
+git clone https://github.com/DiogoFSPinheiro/Interview_Exercise
 cd multithreaded-queue
 
 # Make the script executable (only once)
