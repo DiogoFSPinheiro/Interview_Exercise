@@ -1,7 +1,7 @@
 /**
  * @file Queue.tpp
  * @author DiogoFSPinheiro
- * @brief This file has all the Template Functions
+ * @brief Contains the template function definitions for the Queue class.
  * @version 1.01
  * @date 2025-04-18
  * 
@@ -12,10 +12,9 @@
 #include "Queue.hpp"
 
 /**
-* @brief Gets the current number of elements in the queue.
-* 
-* @return The current count of elements.
-*/
+ * @brief Returns the current number of elements in the queue.
+ * @return The number of elements currently stored.
+ */
 template <typename T>
 int Queue<T>::Count()
 {
@@ -23,15 +22,14 @@ int Queue<T>::Count()
 }
 
 /**
-* @brief Removes and returns an element from the queue with a timeout.
-* 
-* Blocks the calling thread until an item is available or the specified timeout is reached.
-* 
-* @param milliseconds The timeout in milliseconds to wait for an element.
-* @return The item popped from the queue.
-* 
-* @throws std::runtime_error If no element is received within the given timeout.
-*/
+ * @brief Removes and returns an element from the queue, blocking up to a specified timeout.
+ * 
+ * Blocks the calling thread until an item becomes available or the timeout elapses.
+ * 
+ * @param milliseconds Maximum time to wait for an element, in milliseconds.
+ * @return The item removed from the queue.
+ * @throws std::runtime_error If the timeout expires without receiving an element.
+ */
 template<typename T>
 T Queue<T>::PopWithTimeout(int milliseconds)
 {
@@ -53,12 +51,10 @@ T Queue<T>::PopWithTimeout(int milliseconds)
 }
 
 /**
-* @brief Removes and returns an element from the queue.
-* 
-* Blocks the calling thread until an item becomes available.
-* 
-* @return The item popped from the queue.
-*/
+ * @brief Removes and returns an element from the queue, blocking until one is available.
+ * 
+ * @return The item removed from the queue.
+ */
 template<typename T>
 T Queue<T>::Pop()
 {
@@ -74,13 +70,12 @@ T Queue<T>::Pop()
 }
 
 /**
-* @brief Adds an element to the queue.
-* 
-* If the queue is full, it discards the oldest element before inserting the new one.
-* Notifies one waiting thread (if any).
-* 
-* @param element The element to insert.
-*/
+ * @brief Inserts an element into the queue.
+ * 
+ * If the queue is full, the oldest element is overwritten. Notifies one waiting thread, if any.
+ * 
+ * @param element The element to insert.
+ */
 template <typename T>
 void Queue<T>::Push(T element)
 {
@@ -100,10 +95,10 @@ void Queue<T>::Push(T element)
 }
 
 /**
-* @brief Constructs a queue with a fixed capacity.
-* 
-* @param size The maximum number of elements the queue can hold.
-*/
+ * @brief Constructs a queue with the specified capacity.
+ * 
+ * @param size The maximum number of elements the queue can hold.
+ */
 template<typename T>
 Queue<T>::Queue(int size) : _maxSize(size), _head(0), _tail(0), _count(0)
 {
@@ -111,10 +106,8 @@ Queue<T>::Queue(int size) : _maxSize(size), _head(0), _tail(0), _count(0)
 }
 
 /**
-* @brief Destructor for the queue.
-* 
-* Frees the dynamically allocated buffer.
-*/
+ * @brief Destructor. Releases allocated resources.
+ */
 template<typename T>
 Queue<T>::~Queue()
 {
@@ -122,10 +115,10 @@ Queue<T>::~Queue()
 }
 
 /**
-* @brief Gets the maximum capacity of the queue.
-* 
-* @return The maximum number of elements the queue can hold.
-*/
+ * @brief Returns the maximum capacity of the queue.
+ * 
+ * @return The maximum number of elements the queue can hold.
+ */
 template<typename T>
 int Queue<T>::Size()
 {
@@ -133,10 +126,10 @@ int Queue<T>::Size()
 }
 
 /**
-* @brief Advances an index in circular fashion within the bounds of the queue size.
-* 
-* @param index Reference to the index to be incremented.
-*/
+ * @brief Advances the specified index in a circular fashion.
+ * 
+ * @param index The index to update.
+ */
 template<typename T>
 void Queue<T>::advance(int &index)
 {
@@ -144,12 +137,12 @@ void Queue<T>::advance(int &index)
 }
 
 /**
-* @brief Prints internal state of the queue for debugging purposes.
-* 
-* Shows buffer content, head, tail, and count values with a custom label.
-* 
-* @param label A label to identify the debug print.
-*/
+ * @brief Prints the internal state of the queue for debugging purposes.
+ * 
+ * Displays buffer contents, head/tail indices, and the element count.
+ * 
+ * @param label A label to prefix the debug output.
+ */
 template<typename T>
 void Queue<T>::DebugState(const std::string& label) const
 {

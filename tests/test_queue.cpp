@@ -2,19 +2,48 @@
 //#include "../src/Queue.tpp"
 #include "utils.hpp"
 
+TEST(QueueTest, Subject_main)
+{
+	Queue<int> q(2);
+	std::thread producer(pushingMain, std::ref(q));
+    std::thread consumer(popingMain, std::ref(q));
+
+	producer.join();
+	consumer.join();
 
 
-TEST(QueueTest, OverwritesWhenFull) {
+}
+
+TEST(QueueTest, Pop_Waits_for_Push)
+{
+	Queue<int> q(10);
+	std::thread producer(pushing, std::ref(q));
+    std::thread consumer(poping, std::ref(q));
+
+	producer.join();
+	consumer.join();
+
+	EXPECT_EQ(q.Count(), 0);
+	q.Push(22);
+
+	EXPECT_EQ(q.Count(), 1);
+	EXPECT_EQ(q.Pop(), 22);
+
+}
+
+TEST(QueueTest, OverwritesWhenFull)
+{
 	Queue<int> q(2);
 	q.Push(1);
 	q.Push(2);
-	q.Push(3); // should overwrite the oldest (1)
+	q.Push(3);
 	EXPECT_EQ(q.Count(), 2);
 	EXPECT_EQ(q.Pop(), 2);
 	EXPECT_EQ(q.Pop(), 3);
 }
 
-TEST(QueueTest, PopWithTimeoutThrowsOnTimeout) {
+TEST(QueueTest, PopWithTimeoutThrowsOnTimeout)
+{
 	Queue<int> q(1);
 	EXPECT_THROW(q.PopWithTimeout(100), std::runtime_error);
 }
@@ -51,3 +80,9 @@ TEST(QueueTest, MultithreadedPushPop_unsigned_int)
 	producer.join();
 	consumer.join();
 }
+
+
+
+
+
+

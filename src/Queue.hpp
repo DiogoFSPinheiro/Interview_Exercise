@@ -6,6 +6,14 @@
 #include <vector>
 #include <condition_variable>
 
+/**
+ * @brief A thread-safe circular queue implementation with optional timeout-based blocking operations.
+ * 
+ * Provides basic producer-consumer queue semantics with thread synchronization.
+ * Template-based to support any copyable data type.
+ * 
+ * @tparam T The type of elements stored in the queue.
+ */
 template<typename T>
 class Queue
 {
@@ -20,6 +28,7 @@ class Queue
 		mutable std::mutex mtx;               // Mutex for thread safety
 		std::condition_variable cv;           // Condition variable for blocking pop
 		void advance(int &index);             // Helper for circular index
+		void DebugState(const std::string& label) const;
 
 	public:
 		Queue(int size);
@@ -30,6 +39,6 @@ class Queue
 		int Count();
 		int Size();
 
-		void DebugState(const std::string& label) const;
+		
 };
 
