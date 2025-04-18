@@ -42,3 +42,25 @@ chmod +x runCode.sh
 
 # Delete the build directory (optional cleanup)
 ./runCode.sh delete
+
+# Run Doxygen
+cd docs
+doxygen
+```
+
+## Working Directory
+```bash
+.
+├── src/
+│   └── Queue.tpp
+│   └── Queue.hpp
+├── tests/
+│   └── test_queue.cpp
+│   └── utils.hpp
+├── docs/
+│   └── Doxyfile
+├── CMakeLists.txt
+└── runCode.sh
+└── README.md
+
+```
