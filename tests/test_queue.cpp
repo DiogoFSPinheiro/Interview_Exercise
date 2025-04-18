@@ -48,8 +48,6 @@ TEST(QueueTest, PopWithTimeoutThrowsOnTimeout)
 	EXPECT_THROW(q.PopWithTimeout(100), std::runtime_error);
 }
 
-
-
 TEST(QueueTest, MultithreadedPushPop)
 {
 	Queue<int> q(10);
