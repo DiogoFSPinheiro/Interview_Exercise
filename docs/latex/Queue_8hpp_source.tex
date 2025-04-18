@@ -1,0 +1,41 @@
+\doxysection{Queue.\+hpp}
+\hypertarget{Queue_8hpp_source}{}\label{Queue_8hpp_source}\index{/home/diogo/Interview\_Exercise/src/Queue.hpp@{/home/diogo/Interview\_Exercise/src/Queue.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <condition\_variable>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classQueue}{Queue}}}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ T*\ \_buffer;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Dynamically\ allocated\ buffer}}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_maxSize;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Max\ elements\ in\ queue}}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_head;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Index\ for\ popping}}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_tail;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Index\ for\ pushing}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_count;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Current\ element\ count}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{mutable}\ std::mutex\ mtx;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mutex\ for\ thread\ safety}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ std::condition\_variable\ cv;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Condition\ variable\ for\ blocking\ pop}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ advance(\textcolor{keywordtype}{int}\ \&index);\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Helper\ for\ circular\ index}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classQueue}{Queue}}(\textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classQueue}{\string~Queue}}();}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ Push(T\ element);}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ T\ Pop();}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ T\ PopWithTimeout(\textcolor{keywordtype}{int}\ milliseconds);}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ Count();}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ Size();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ DebugState(\textcolor{keyword}{const}\ std::string\&\ label)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+
+\end{DoxyCode}
