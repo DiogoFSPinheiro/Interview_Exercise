@@ -20,7 +20,6 @@ The core class is a template-based `Queue<T>` that can be used with any copyable
 - `T PopWithTimeout(int milliseconds)` — Waits up to a timeout for an element, throws if none arrives
 - `int Count()` — Returns the number of elements currently stored
 - `int Size()` — Returns the maximum capacity
-- `void DebugState(const std::string& label)` — (Optional) Prints internal state for debugging
 
 ## Build Instructions
 
