@@ -36,9 +36,7 @@ T Queue<T>::PopWithTimeout(int milliseconds)
 	std::unique_lock<std::mutex> lock(mtx);
 
 	if (!cv.wait_for(lock, std::chrono::milliseconds(milliseconds), [this] { return _count > 0; }))
-	{
 		throw std::runtime_error("No element received in time.");
-	}
 
 	T value = _buffer[_head];
 	advance(_head);
